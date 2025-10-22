@@ -5,7 +5,7 @@ on: [push]
 jobs:
   SAST: 
     name: sast scan using bandit
-    runs-on: ubuntu-lateset
+    runs-on: ubuntu-latest
 
     steps: 
     - name: Chekout code
