@@ -46,6 +46,4 @@ jobs:
 
       - name: Scan Docker using Docker Scout
         uses: docker/scout-action@v1.18.2
-
-
         
