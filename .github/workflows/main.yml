@@ -1,0 +1,22 @@
+name: Pylint
+
+on: [push]
+
+jobs:
+  SAST: 
+    name: sast scan using bandit
+    runs-on: ubuntu-lateset
+
+    steps: 
+    - name: Chekout code
+      uses: actions/checkout@v5
+
+    - name: setup Python
+      uses: actions/setup-python@v6
+
+    - name: Install bandit
+      run: pip install bandit
+
+    - name: run bandit scan
+      run: bandit -r . -f json -o bandit-scan.json
+      
