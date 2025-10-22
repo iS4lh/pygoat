@@ -41,8 +41,14 @@ jobs:
       - name: Docker setup
         uses: docker/setup-docker-action@v4.4.0
 
-      - name: Build Docker
-        run: docker build -f Dockerfile -t myapp:latest .
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false
+          tags: myapp:latest
+
 
       - name: Scan Docker using Docker Scout
         uses: docker/scout-action@v1.18.2
