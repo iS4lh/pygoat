@@ -3,8 +3,8 @@ name: CI
 on: [push]
 
 jobs:
-  SAST: 
-    name: SAST using Bandit
+  SAST_Scan: 
+    name: SAST scan using Bandit
     runs-on: ubuntu-latest
 
     steps: 
@@ -28,3 +28,24 @@ jobs:
       with:
         name: Bandit-Report
         path: Bandit-scan.json
+  
+  
+  Image_Scan:
+    name: Image scan using Docker Scout
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      - name: Docker setup
+        uses: docker/setup-docker-action@v4.4.0
+
+      - name: Build Docker
+        run: docker build -f Dockerfile -t myapp:latest .
+
+      - name: Scan Docker using Docker Scout
+        uses: docker/scout-action@v1.18.2
+
+
+        
