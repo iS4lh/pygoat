@@ -1,24 +1,29 @@
-name: Pylint
+name: CI
 
 on: [push]
 
 jobs:
   SAST: 
-    name: sast scan using bandit
+    name: SAST using Bandit
     runs-on: ubuntu-latest
 
     steps: 
     - name: Chekout code
       uses: actions/checkout@v5
 
-    - name: setup Python
+    - name: Setup Python
       uses: actions/setup-python@v6
       with: 
           python-version: '3.11'
 
-    - name: Install bandit
+    - name: Install Bandit
       run: pip install bandit
 
-    - name: run bandit scan
-      run: bandit -r .
-      
+    - name: Run bandit scan
+      run: bandit -r . -f json -o Bandit-scan.json
+
+    - name: Upload scan result
+      uses: actions/upload-artifact@v4.6.2
+      with:
+        name: Bandit-Report
+        path: Bandit-scan.json
